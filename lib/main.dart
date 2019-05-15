@@ -13,7 +13,11 @@ void main() async{
 
 
   runApp(MaterialApp(
-    home: Container()
+    home: Home(),
+    theme: ThemeData(
+      hintColor: Colors.amber,
+      primaryColor: Colors.white
+    ),
   ));
 }
 
@@ -29,6 +33,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  double dolar, euro;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,8 +71,53 @@ class _HomeState extends State<Home> {
                   );
                 }
                 else{
-                  return Container(
-                    color: Colors.green,
+                  dolar = snapshot.data["results"]["currencies"]["USD"]["buy"];
+                  euro = snapshot.data["results"]["currencies"]["EUR"]["buy"];
+
+                  //tela que é scroll
+                  return SingleChildScrollView(
+                    padding: EdgeInsets.all(10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        Icon(Icons.monetization_on, size: 150.0, color: Colors.amber,),
+                        TextField(
+                          decoration: InputDecoration(
+                            labelText: "Reais",
+                            labelStyle: TextStyle(color: Colors.amber),
+                            border: OutlineInputBorder(),
+                            prefixText: "R\$"
+                          ),
+                          style: TextStyle(
+                            color: Colors.amber
+                          )
+                        ),
+                        Divider(),
+                        TextField(
+                            decoration: InputDecoration(
+                                labelText: "Dolar",
+                                labelStyle: TextStyle(color: Colors.amber),
+                                border: OutlineInputBorder(),
+                                prefixText: "US\$"
+                            ),
+                            style: TextStyle(
+                                color: Colors.amber
+                            )
+                        ),
+                        Divider(),
+                        TextField(
+                            decoration: InputDecoration(
+                                labelText: "Euro",
+                                labelStyle: TextStyle(color: Colors.amber),
+                                border: OutlineInputBorder(),
+                                prefixText: "EUR"
+                            ),
+                            style: TextStyle(
+                                color: Colors.amber
+                            )
+                        ),
+                      ],
+                    ),
                   );
                 }
             }
